@@ -4,30 +4,32 @@ image_config: &image_config
   # either as project-specific environment variables
   # or as resources in your organization's org-global Context
 
-  IMAGE_NAME: # name your image (no spaces please!)
+  IMAGE_NAME: golang-node8 # name your image (no spaces please!)
 
-  IMAGE_TAG: # give your image a tag (no spaces please!)
+  IMAGE_TAG: latest # give your image a tag (no spaces please!)
 
   # NOTE: if you're modifying this config.yml file manually
   # rather than using the included setup script,
   # make sure you also add the values of your IMAGE_NAME & IMAGE_TAG variables
   # to the `test_image` job (line 55)
 
-  LINUX_VERSION: # DEBIAN_JESSIE, DEBIAN_STRETCH, UBUNTU_TRUSTY, or UBUNTU_XENIAL
+  LINUX_VERSION: UBUNTU_XENIAL # DEBIAN_JESSIE, DEBIAN_STRETCH, UBUNTU_TRUSTY, or UBUNTU_XENIAL
 
-  RUBY_VERSION_NUM: # pick a version from https://cache.ruby-lang.org/pub/ruby
+  # RUBY_VERSION_NUM: # pick a version from https://cache.ruby-lang.org/pub/ruby
 
-  NODE_VERSION_NUM: # pick a version from https://nodejs.org/dist
+  NODE_VERSION_NUM: 8.11.1 # pick a version from https://nodejs.org/dist
 
-  PYTHON_VERSION_NUM: # pick a version from https://python.org/ftp/python
+  # PYTHON_VERSION_NUM: # pick a version from https://python.org/ftp/python
 
-  JAVA: # Java options: true, false
+  JAVA: false # Java options: true, false
 
-  MYSQL_CLIENT: # MySQL options: true, false
+  MYSQL_CLIENT: false # MySQL options: true, false
 
-  POSTGRES_CLIENT: # Postgres options: true, false
+  POSTGRES_CLIENT: false # Postgres options: true, false
 
-  BROWSERS: # browser tools (Xvfb, PhantomJS, Firefox, Chrome, Chromedriver): true, false
+  BROWSERS: false # browser tools (Xvfb, PhantomJS, Firefox, Chrome, Chromedriver): true, false
+
+  DOCKER_USERNAME: tanta
 
 version: 2
 jobs:
@@ -38,14 +40,10 @@ jobs:
 
     steps:
       - checkout
-
-##      - run: bash scripts/generate.sh > Dockerfile
-
-##      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-
-##      - run: docker build -t $DOCKER_USERNAME/$IMAGE_NAME:$IMAGE_TAG .
-
-##      - run: docker push $DOCKER_USERNAME/$IMAGE_NAME:$IMAGE_TAG && sleep 10
+      - run: bash scripts/generate.sh > Dockerfile
+      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - run: docker build -t $DOCKER_USERNAME/$IMAGE_NAME:$IMAGE_TAG .
+      - run: docker push $DOCKER_USERNAME/$IMAGE_NAME:$IMAGE_TAG && sleep 10
 
 ##      - store_artifacts:
 ##          path: Dockerfile
