@@ -19,6 +19,7 @@ image_config: &image_config
 
   NODE_VERSION_NUM: 8.11.1 # pick a version from https://nodejs.org/dist
 
+  GOLANG_VERSION_NUM: 1.9.3
   # PYTHON_VERSION_NUM: # pick a version from https://python.org/ftp/python
 
   JAVA: false # Java options: true, false

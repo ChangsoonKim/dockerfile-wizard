@@ -26,6 +26,16 @@ if [ ! -e $NODE_VERSION_NUM ] ; then
     rm -r node-v$NODE_VERSION_NUM"
 fi
 
+if [ ! -e $GOLANG_VERSION_NUM ] ; then
+    echo "RUN wget https://dl.google.com/go/go$GOLANG_VERSION_NUM.linux-amd64.tar.gz && \
+    tar -xzvf go$GOLANG_VERSION_NUM.linux-amd64.tar.gz && \
+    rm go$GOLANG_VERSION_NUM.linux-amd64.tar.gz && \
+    mv go /usr/local/ && \
+    mkdir -p /go"
+    echo "ENV PATH $PATH:/usr/local/go/bin:/go/bin"
+fi
+
+
 if [ ! -e $PYTHON_VERSION_NUM ] ; then
     echo "RUN wget https://www.python.org/ftp/python/$PYTHON_VERSION_NUM/Python-$PYTHON_VERSION_NUM.tgz && \
     tar xzf Python-$PYTHON_VERSION_NUM.tgz && \
