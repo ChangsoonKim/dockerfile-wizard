@@ -2,7 +2,7 @@
 
 echo "FROM buildpack-deps:$(awk -F'_' '{print tolower($2)}' <<< $LINUX_VERSION)"
 
-RUN apt-get update
+echo "RUN apt-get update"
 
 if [ ! -e $RUBY_VERSION_NUM ] ; then
     echo "RUN apt-get install -y libssl-dev && wget http://ftp.ruby-lang.org/pub/ruby/$(awk -F'.' '{ print $1"."$2 }' <<< $RUBY_VERSION_NUM)/ruby-$RUBY_VERSION_NUM.tar.gz && \
@@ -32,7 +32,8 @@ if [ ! -e $GOLANG_VERSION_NUM ] ; then
     rm go$GOLANG_VERSION_NUM.linux-amd64.tar.gz && \
     mv go /usr/local/ && \
     mkdir -p /go"
-    echo "ENV PATH $PATH:/usr/local/go/bin:/go/bin"
+    echo "ENV GOPATH /go"
+    echo "ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin"
 fi
 
 
